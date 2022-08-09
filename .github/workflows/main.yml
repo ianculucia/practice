@@ -26,6 +26,11 @@ jobs:
         node_modules/sfdx-cli/bin/run force:auth:sfdxurl:store -f sfdxUrl -s -a Lucia
       env:
         url_secret: ${{ secrets.url_secret }}
+        - name: Token
+      run: |
+        echo "${Token_Access}" > sfdxUrl
+        env:
+        Token_Access: ${{ secrets.Token_Access }}
     - name: Deploy Source
       run: |
         node_modules/sfdx-cli/bin/run force:source:deploy -u Lucia -x manifest/package.xml -l RunLocalTests -c --verbose
